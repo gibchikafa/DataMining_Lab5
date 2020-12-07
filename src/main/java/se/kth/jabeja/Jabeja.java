@@ -64,13 +64,13 @@ public class Jabeja {
     Node nodep = entireGraph.get(nodeId);
 
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
+        || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
       partner = findPartner(nodeId, getNeighbors(nodep));
     }
 
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
+        || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
       if (partner == null)
         partner = findPartner(nodeId, getSample(nodeId));
@@ -93,22 +93,22 @@ public class Jabeja {
     double highestBenefit = 0;
 
     for (Integer node : nodes) {
-        Node nodeq = entireGraph.get(node);
-        int dpp = this.getDegree(nodep, nodep.getColor());
-        int dqq = this.getDegree(nodeq, nodeq.getColor());
+      Node nodeq = entireGraph.get(node);
+      int dpp = this.getDegree(nodep, nodep.getColor());
+      int dqq = this.getDegree(nodeq, nodeq.getColor());
 
-        double old = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
+      double old = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
 
-        int dpq = this.getDegree(nodep, nodeq.getColor());
-        int dqp = this.getDegree(nodeq, nodep.getColor());
+      int dpq = this.getDegree(nodep, nodeq.getColor());
+      int dqp = this.getDegree(nodeq, nodep.getColor());
 
-        double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
+      double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
 
-        double ap = Math.pow(Math.E, ((newd - old) / T));
-        if (ap > Math.random() && newd > highestBenefit) {
-          bestPartner = nodeq;
-          highestBenefit = newd;
-        }
+      double ap = Math.pow(Math.E, ((newd - old) / T));
+      if (ap > Math.random() && newd > highestBenefit) {
+        bestPartner = nodeq;
+        highestBenefit = newd;
+      }
     }
 
     return bestPartner;
@@ -226,10 +226,10 @@ public class Jabeja {
     int edgeCut = grayLinks / 2;
 
     logger.info("round: " + round +
-            ", edge cut:" + edgeCut +
-            ", swaps: " + numberOfSwaps +
-            ", migrations: " + migrations +
-            ", temperature: " + T);
+        ", edge cut:" + edgeCut +
+        ", swaps: " + numberOfSwaps +
+        ", migrations: " + migrations +
+        ", temperature: " + T);
 
     saveToFile(edgeCut, migrations);
   }
@@ -241,8 +241,8 @@ public class Jabeja {
     //output file name
     File inputFile = new File(config.getGraphFilePath());
     outputFilePath = config.getOutputDir() +
-            File.separator +
-            "1.txt";
+        File.separator +
+        "1.txt";
 
     if (!resultFileCreated) {
       File outputDir = new File(config.getOutputDir());

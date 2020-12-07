@@ -100,16 +100,16 @@ public class CLI {
     }
 
     return new Config().setRandNeighborsSampleSize(randNeighborsSampleSize)
-            .setDelta(DELTA)
-            .setNumPartitions(NUM_PARTITIONS)
-            .setUniformRandSampleSize(UNIFORM_RAND_SAMPLE_SIZE)
-            .setRounds(ROUNDS)
-            .setSeed(SEED)
-            .setTemperature(TEMPERATURE)
-            .setGraphFilePath(GRAPH)
-            .setNodeSelectionPolicy(nodeSelectionPolicy)
-            .setGraphInitialColorPolicy(graphInitColorSelectionPolicy)
-            .setOutputDir(OUTPUT_DIR)
-            .setAlpha(ALPHA);
+        .setDelta(DELTA)
+        .setNumPartitions(NUM_PARTITIONS)
+        .setUniformRandSampleSize(UNIFORM_RAND_SAMPLE_SIZE)
+        .setRounds(ROUNDS)
+        .setSeed(SEED)
+        .setTemperature(TEMPERATURE)
+        .setGraphFilePath(GRAPH)
+        .setNodeSelectionPolicy(nodeSelectionPolicy)
+        .setGraphInitialColorPolicy(graphInitColorSelectionPolicy)
+        .setOutputDir(OUTPUT_DIR)
+        .setAlpha(ALPHA);
   }
 }
