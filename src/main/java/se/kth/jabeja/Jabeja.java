@@ -27,7 +27,6 @@ public class Jabeja {
     this.round = 0;
     this.numberOfSwaps = 0;
     this.config = config;
-    this.T = config.getTemperature();
   }
 
 
@@ -49,10 +48,11 @@ public class Jabeja {
    * Simulated analealing cooling function
    */
   private void saCoolDown(){
-    if (round % 400 == 0) {
-      this.T = config.getTemperature();
-    }
-    T *= config.getDelta();
+    // TODO for second task
+    if (T > 1)
+      T -= config.getDelta();
+    if (T < 1)
+      T = 1;
   }
 
   /**
@@ -64,13 +64,13 @@ public class Jabeja {
     Node nodep = entireGraph.get(nodeId);
 
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
+        || config.getNodeSelectionPolicy() == NodeSelectionPolicy.LOCAL) {
       // swap with random neighbors
       partner = findPartner(nodeId, getNeighbors(nodep));
     }
 
     if (config.getNodeSelectionPolicy() == NodeSelectionPolicy.HYBRID
-            || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
+        || config.getNodeSelectionPolicy() == NodeSelectionPolicy.RANDOM) {
       // if local policy fails then randomly sample the entire graph
       if (partner == null)
         partner = findPartner(nodeId, getSample(nodeId));
@@ -92,23 +92,24 @@ public class Jabeja {
     Node bestPartner = null;
     double highestBenefit = 0;
 
+    // TODO
+
     for (Integer node : nodes) {
-        Node nodeq = entireGraph.get(node);
-        int dpp = this.getDegree(nodep, nodep.getColor());
-        int dqq = this.getDegree(nodeq, nodeq.getColor());
+      Node nodeq = entireGraph.get(node);
+      int dpp = this.getDegree(nodep, nodep.getColor());
+      int dqq = this.getDegree(nodeq, nodeq.getColor());
 
-        double old = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
+      double old = Math.pow(dpp, config.getAlpha()) + Math.pow(dqq, config.getAlpha());
 
-        int dpq = this.getDegree(nodep, nodeq.getColor());
-        int dqp = this.getDegree(nodeq, nodep.getColor());
+      int dpq = this.getDegree(nodep, nodeq.getColor());
+      int dqp = this.getDegree(nodeq, nodep.getColor());
 
-        double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
+      double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
 
-        double ap = Math.pow(Math.E, ((newd - old) / T));
-        if (ap > Math.random() && newd > highestBenefit) {
-          bestPartner = nodeq;
-          highestBenefit = newd;
-        }
+      if ((newd * T > old) && (newd > highestBenefit)) {
+        bestPartner = nodeq;
+        highestBenefit = newd;
+      }
     }
 
     return bestPartner;
@@ -226,10 +227,9 @@ public class Jabeja {
     int edgeCut = grayLinks / 2;
 
     logger.info("round: " + round +
-            ", edge cut:" + edgeCut +
-            ", swaps: " + numberOfSwaps +
-            ", migrations: " + migrations +
-            ", temperature: " + T);
+        ", edge cut:" + edgeCut +
+        ", swaps: " + numberOfSwaps +
+        ", migrations: " + migrations);
 
     saveToFile(edgeCut, migrations);
   }
@@ -241,8 +241,16 @@ public class Jabeja {
     //output file name
     File inputFile = new File(config.getGraphFilePath());
     outputFilePath = config.getOutputDir() +
-            File.separator +
-            "1.txt";
+        File.separator +
+        inputFile.getName() + "_" +
+        "NS" + "_" + config.getNodeSelectionPolicy() + "_" +
+        "GICP" + "_" + config.getGraphInitialColorPolicy() + "_" +
+        "T" + "_" + config.getTemperature() + "_" +
+        "D" + "_" + config.getDelta() + "_" +
+        "RNSS" + "_" + config.getRandomNeighborSampleSize() + "_" +
+        "URSS" + "_" + config.getUniformRandomSampleSize() + "_" +
+        "A" + "_" + config.getAlpha() + "_" +
+        "R" + "_" + config.getRounds() + ".txt";
 
     if (!resultFileCreated) {
       File outputDir = new File(config.getOutputDir());
