@@ -19,6 +19,7 @@ public class Jabeja {
   private int round;
   private float T;
   private boolean resultFileCreated = false;
+  private final double TEMPERATURE_LOWER_BOUND = 0.001;
 
   //-------------------------------------------------------------------
   public Jabeja(HashMap<Integer, Node> graph, Config config) {
@@ -52,7 +53,10 @@ public class Jabeja {
     if (round % 400 == 0) {
       this.T = config.getTemperature();
     }
-    T *= config.getDelta();
+    this.T *= config.getDelta();
+/*    if(T < TEMPERATURE_LOWER_BOUND) {
+      this.T = config.getDelta();
+    }*/
   }
 
   /**
