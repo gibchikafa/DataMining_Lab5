@@ -27,6 +27,7 @@ public class Jabeja {
     this.round = 0;
     this.numberOfSwaps = 0;
     this.config = config;
+    this.T = config.getTemperature();
   }
 
 
@@ -48,11 +49,10 @@ public class Jabeja {
    * Simulated analealing cooling function
    */
   private void saCoolDown(){
-    // TODO for second task
-    if (T > 1)
-      T -= config.getDelta();
-    if (T < 1)
-      T = 1;
+    if (round % 200 == 0) {
+      this.T = config.getTemperature();
+    }
+    T *= config.getDelta() * T;
   }
 
   /**
@@ -92,8 +92,6 @@ public class Jabeja {
     Node bestPartner = null;
     double highestBenefit = 0;
 
-    // TODO
-
     for (Integer node : nodes) {
       Node nodeq = entireGraph.get(node);
       int dpp = this.getDegree(nodep, nodep.getColor());
@@ -106,7 +104,8 @@ public class Jabeja {
 
       double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
 
-      if ((newd * T > old) && (newd > highestBenefit)) {
+      double ap = Math.pow(Math.E, ((newd - old) / T)) - Math.E;
+      if (ap > Math.random() && newd > highestBenefit) {
         bestPartner = nodeq;
         highestBenefit = newd;
       }
@@ -229,7 +228,8 @@ public class Jabeja {
     logger.info("round: " + round +
         ", edge cut:" + edgeCut +
         ", swaps: " + numberOfSwaps +
-        ", migrations: " + migrations);
+        ", migrations: " + migrations +
+        ", temperature: " + T);
 
     saveToFile(edgeCut, migrations);
   }
@@ -242,15 +242,7 @@ public class Jabeja {
     File inputFile = new File(config.getGraphFilePath());
     outputFilePath = config.getOutputDir() +
         File.separator +
-        inputFile.getName() + "_" +
-        "NS" + "_" + config.getNodeSelectionPolicy() + "_" +
-        "GICP" + "_" + config.getGraphInitialColorPolicy() + "_" +
-        "T" + "_" + config.getTemperature() + "_" +
-        "D" + "_" + config.getDelta() + "_" +
-        "RNSS" + "_" + config.getRandomNeighborSampleSize() + "_" +
-        "URSS" + "_" + config.getUniformRandomSampleSize() + "_" +
-        "A" + "_" + config.getAlpha() + "_" +
-        "R" + "_" + config.getRounds() + ".txt";
+        "1.txt";
 
     if (!resultFileCreated) {
       File outputDir = new File(config.getOutputDir());

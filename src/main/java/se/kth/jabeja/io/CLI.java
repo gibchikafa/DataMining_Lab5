@@ -29,16 +29,16 @@ public class CLI {
   private int UNIFORM_RAND_SAMPLE_SIZE = 6;
 
   @Option(name = "-temp", usage = "Simulated annealing temperature.")
-  private float TEMPERATURE = 2;
+  private float TEMPERATURE = 1;
 
   @Option(name = "-delta", usage = "Simulated annealing delta.")
-  private float DELTA = (float) 0.003;
+  private float DELTA = (float) 0.99;
 
   @Option(name = "-seed", usage = "Seed.")
   private int SEED = 0;
 
   @Option(name = "-alpha", usage = "Alpah parameter")
-  private float ALPHA = 2;
+  private float ALPHA = 1;
 
   @Option(name = "-randNeighborsSampleSize", usage = "Number of random neighbors sample size.")
   private int randNeighborsSampleSize = 3;
@@ -52,7 +52,7 @@ public class CLI {
   private NodeSelectionPolicy nodeSelectionPolicy = NodeSelectionPolicy.HYBRID;
 
   @Option(name = "-graph", usage = "Location of the input graph.")
-  private static String GRAPH = "./graphs/ws-250.graph";
+  private static String GRAPH = "./graphs/add20.graph";
 
   @Option(name = "-outputDir", usage = "Location of the output file(s)")
   private static String OUTPUT_DIR = "./output";
