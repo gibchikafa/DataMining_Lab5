@@ -104,7 +104,9 @@ public class Jabeja {
 
       double newd = Math.pow(dpq, config.getAlpha()) + Math.pow(dqp, config.getAlpha());
 
-      double ap = Math.pow(Math.E, ((newd - old) / T)) - Math.E;
+      double delta = -(newd - old);
+      double ap = 1/(1 + Math.pow(Math.E, (delta / T)));
+
       if (ap > Math.random() && newd > highestBenefit) {
         bestPartner = nodeq;
         highestBenefit = newd;
