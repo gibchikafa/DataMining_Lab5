@@ -1,0 +1,10 @@
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/Main.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/io/FileIO.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/io/CLI.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/rand/RandNoGenerator.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/config/NodeSelectionPolicy.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/Node.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/Jabeja.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/io/GraphReader.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/config/GraphInitColorPolicy.java
+/home/gibson/Desktop/lab5/src/main/java/se/kth/jabeja/config/Config.java

@@ -52,7 +52,7 @@ public class Jabeja {
     if (round % 200 == 0) {
       this.T = config.getTemperature();
     }
-    T *= config.getDelta() * T;
+    T = config.getDelta() * T;
   }
 
   /**
